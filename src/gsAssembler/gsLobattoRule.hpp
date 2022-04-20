@@ -115,7 +115,7 @@ gsLobattoRule<T>::computeReference(index_t n,       // Number of points
     x.reverseInPlace();
 
     for ( i = 0; i < n; i++ )
-        w[i] = 2.0 / ( (T) ( ( n - 1 ) * n ) * math::pow ( p[i+(n-1)*n], 2 ) );
+        w[i] = 2.0 / ( (T) ( ( n - 1 ) * n ) * pow ( p[i+(n-1)*n], 2 ) );
 }
 
 
@@ -124,6 +124,8 @@ gsLobattoRule<T>::lookupReference(index_t n,   // Number of points
                                   gsVector<T> & x, // Quadrature points
                                   gsVector<T> & w) // Quadrature weights
 {
+   GISMO_ENSURE( false, "lookup lobatto");
+
     x.resize(n);
     w.resize(n);
 

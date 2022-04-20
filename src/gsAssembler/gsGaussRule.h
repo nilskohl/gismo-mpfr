@@ -35,18 +35,18 @@ public:
 
     /// Initialize a tensor-product Gauss quadrature rule with \a numNodes (direction-wise)
     gsGaussRule(gsVector<index_t> const & numNodes,
-                const unsigned digits = 0 )
+                const unsigned digits = 100 )
     {
         gsGaussRule::setNodes(numNodes, digits);
     }
 
     /// Make function returning a smart pointer
     static uPtr make(gsVector<index_t> const & numNodes,
-                        const unsigned digits = 0 )
+                        const unsigned digits = 100 )
     { return uPtr( new gsGaussRule(numNodes,digits) ); }
 
     /// Initialize a 1D Gauss quadrature rule with \a numNodes
-    gsGaussRule(index_t numNodes, const unsigned digits = 0 )
+    gsGaussRule(index_t numNodes, const unsigned digits = 100 )
     {
         this->setNodes(numNodes, digits);
     }
@@ -67,13 +67,13 @@ public:
 public:
     // see gsQuadRule.h for documentation
     void setNodes( gsVector<index_t> const & numNodes, 
-                   unsigned digits = 0 );
+                   unsigned digits = 100 );
 
     using gsQuadRule<T>::setNodes; // unhide base
 
 private:
 
-    void init(const gsBasis<T> & basis, const T quA, const index_t quB, short_t fixDir);
+    void init(const gsBasis<T> & basis, const T quA, const index_t quB, short_t fixDir, const unsigned digits = 100);
     
     /**
      * @brief Computes the Gauss quadrature rule with \a n nodes in the interval [-1,1].
@@ -81,7 +81,7 @@ private:
      * This function is called by setNodes(), if lookupReference() (which is called first) returned \a false.
      */
     static void computeReference(index_t n, gsVector<T> & x, gsVector<T> & w, 
-                                 unsigned digits =  0 );
+                                 unsigned digits =  100 );
 
     /** 
      *@brief  Look up function for the Gauss quadrature rule in the interval [-1,1].

@@ -20,8 +20,8 @@ namespace gismo
 {
 
 template<class T> void
-gsGaussRule<T>::init(const gsBasis<T> & basis, const T quA, const index_t quB, short_t fixDir)
-//const unsigned digits)
+gsGaussRule<T>::init(const gsBasis<T> & basis, const T quA, const index_t quB, short_t fixDir,
+const unsigned digits)
 {
     const short_t d  = basis.dim();
     GISMO_ASSERT( fixDir < d && fixDir>-2, "Invalid input fixDir = "<<fixDir);
@@ -45,7 +45,7 @@ gsGaussRule<T>::init(const gsBasis<T> & basis, const T quA, const index_t quB, s
     {
         //note: +0.5 for rounding
         const index_t numNodes = cast<T,index_t>(quA * basis.degree(i) + quB + 0.5);
-        //const bool found = 
+        //const bool found =
         lookupReference(numNodes, nodes[i], weights[i]);
         //if (!found)
         //    computeReference(numNodes, nodes[i], weights[i], digits);
@@ -124,12 +124,15 @@ gsGaussRule<T>::computeReference(index_t n,       // Number of points
                                  gsVector<T> & w, // Quadrature weights
                                  unsigned digits) // Number of exact decimal digits
 {
+    digits = 200;
+    // gsInfo << "gauss comp ref: " << digits << " digits\n";
+
     // Allocate space for points and weights.
     x.resize(n);
     w.resize(n);
 
     const unsigned max_its = digits;
-    const T tolerance = math::pow( T(0.1), static_cast<int>(digits) );
+    const T tolerance = pow( T(0.1), static_cast<int>(digits) );
     
     // Find only half the roots because of symmetry
     const unsigned m = n / 2 ;
@@ -165,7 +168,7 @@ gsGaussRule<T>::computeReference(index_t n,       // Number of points
         // Minimax approximations to the zeros of Pn(x) and
         // Gauss-Legendre quadrature, Volume 59,
         // Issue 2  (May 1995), p. 245-252, 1995 
-        x[i] = math::cos(EIGEN_PI*(i+0.75)/(n+0.5));
+        x[i] = mpfr::cos(mpfr::const_pi()*(i+0.75)/(n+0.5));
         
         // Newton loop iteration counter
         unsigned n_its = 0;
@@ -193,7 +196,7 @@ gsGaussRule<T>::computeReference(index_t n,       // Number of points
             // Increment iteration counter
             n_its++;            
         }
-        while ( (math::abs(pn) > tolerance) && (n_its < max_its) );
+        while ( (abs(pn) > tolerance) && (n_its < max_its) );
         
         // if (n_its>=max_its)
         //     gsWarn << "Max ("<<n_its<<") Newton iterations reached, error="
@@ -219,6 +222,9 @@ gsGaussRule<T>::lookupReference(index_t n,       // Number of points
                                 gsVector<T> & x, // Quadrature points
                                 gsVector<T> & w) // Quadrature weights
 {
+
+  GISMO_ENSURE( false, "lookup gauss" );
+
     x.resize(n);
     w.resize(n);
 

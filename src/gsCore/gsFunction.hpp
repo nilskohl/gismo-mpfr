@@ -389,7 +389,7 @@ inline void computeAuxiliaryData (gsMapData<T> & InOut, int d, int n)
             if (tarDim == domDim && tarDim!=-1)
 				InOut.measures(0,p) = math::abs(jac.determinant());
 			else
-				InOut.measures(0,p) = math::sqrt( ( jac.transpose()*jac  ).determinant() );
+				InOut.measures(0,p) = sqrt( ( jac.transpose()*jac  ).determinant() );
 
 
         }

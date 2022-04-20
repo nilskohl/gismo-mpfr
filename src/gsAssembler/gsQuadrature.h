@@ -115,7 +115,7 @@ struct gsQuadrature
 
     /// Constructs a quadrature rule based on input \a options
     template<class T>
-    static inline gsQuadRule<T> get(index_t qu, gsVector<index_t> const & numNodes, unsigned digits = 0)
+    static inline gsQuadRule<T> get(index_t qu, gsVector<index_t> const & numNodes, unsigned digits = 100)
     {
         switch (qu)
         {
@@ -130,7 +130,7 @@ struct gsQuadrature
 
     /// Constructs a quadrature rule based on input \a options
     template<class T>
-    static inline gsQuadRule<T> getUnivariate(index_t qu, index_t numNodes, unsigned digits = 0)
+    static inline gsQuadRule<T> getUnivariate(index_t qu, index_t numNodes, unsigned digits = 100)
     {
         switch (qu)
         {

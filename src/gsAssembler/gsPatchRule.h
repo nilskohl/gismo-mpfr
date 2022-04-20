@@ -237,7 +237,7 @@ protected:
     std::pair<gsVector<T>,gsVector<T> > _compute(const gsKnotVector<T> & knots,
                                                 const gsMatrix<T> & greville,
                                                 const gsVector<T> & integrals,
-                                                const T tol = 1e-10) const;
+                                                const T tol = 1e-30) const;
 
 private:
     const gsBasis<T> * m_basis;
