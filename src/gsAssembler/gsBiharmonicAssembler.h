@@ -65,12 +65,18 @@ public:
         m_options.setInt("DirichletStrategy", dirStrategy);
         m_options.setInt("InterfaceStrategy", intStrategy);
 
-        Base::initialize(m_ppde, bases, m_options);
+        typename gsPde<T>::Ptr pde( new gsBiharmonicPde<T>(patches, bconditions, bconditions2, rhs) );
+        Base::initialize(pde, bases, m_options);
     }
 
     void refresh();
-    
+
     void assemble();
+
+    virtual gsAssembler<T>* clone() const
+    {
+      return new gsBiharmonicAssembler<T>(*this);
+    }
 
 protected:
 
