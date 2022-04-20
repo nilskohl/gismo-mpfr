@@ -72,7 +72,7 @@ public:
      * it will force to compute it everytime.
      */
     void setNodes( index_t numNodes,
-                   unsigned digits = 0 )
+                   unsigned digits = 100 )
     {
         gsVector<index_t> nn(1);
         nn[0] = numNodes;
