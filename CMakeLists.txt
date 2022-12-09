@@ -210,6 +210,11 @@ if(${GISMO_COEFF_TYPE} STREQUAL "mpq_class")
   include(external/gsGmp.cmake)
 endif()
 
+if(GISMO_WITH_MPFR OR GISMO_WITH_GMP)
+  add_definitions(-DMPFR_USE_NO_MACRO)
+  add_subdirectory(extensions/gsMultiPrecision)
+endif()
+
 if(${GISMO_COEFF_TYPE} STREQUAL "mpfr::mpreal")
   include(external/gsGmp.cmake)
   include(external/gsMpfr.cmake)
