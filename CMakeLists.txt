@@ -206,6 +206,7 @@ if(GISMO_WITH_MPI)
 endif(GISMO_WITH_MPI)
 
 if(GISMO_WITH_MPFR OR GISMO_WITH_GMP)
+  add_definitions(-DMPFR_USE_NO_MACRO)
   add_subdirectory(extensions/gsMultiPrecision)
 endif()
 
