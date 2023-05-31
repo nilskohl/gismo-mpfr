@@ -1,4 +1,4 @@
-/** @file gsParaviewCollection.cpp
+/** @File gsParaviewCollection.cpp
 
     @brief Provides a helper class to write Paraview collection (.pvd) files.
 
@@ -55,6 +55,16 @@ namespace gismo
         }
     }
 
+    template<class T>
+    std::string to_string( T &value ) {
+        return std::to_string( value );
+    }
+
+    template<>
+    std::string to_string(mpfr::mpreal &value ) {
+        return value.toString();
+    }
+  
     void gsParaviewCollection::newTimeStep(gsMultiPatch<real_t> * geometry, real_t time)
     {   
         GISMO_ASSERT( m_dataset.isEmpty() || m_dataset.isSaved(), "Previous timestep has not been saved. try running saveTimeStep() before newTimeStep().");
@@ -65,7 +75,7 @@ namespace gismo
             m_time += 1.0;
             time = m_time;
         }
-        else { m_time = time; }
+        else { /*m_time = time;*/ }
 
         std::string name;
         if ( m_options.askSwitch("makeSubfolder",true) )
@@ -83,7 +93,7 @@ namespace gismo
         }
 
 
-        name += "_t" + std::to_string(time);
+        name += "_t" + to_string(time);
        
         m_dataset = gsParaviewDataSet(name, geometry, m_evaluator, m_options);
     }
