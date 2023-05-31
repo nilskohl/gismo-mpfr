@@ -20,7 +20,7 @@ all: ./build/Makefile
 
 ./build/Makefile:
 	@ $(MKDIR) build
-	@ (cd build >/dev/null 2>&1 && cmake ..)
+	@ (cd build >/dev/null 2>&1 && cmake -D GISMO_COEFF_TYPE=mpfr::mpreal -D GMP_PREFIX=/opt/homebrew/opt/gmp -D MPFR_PREFIX=/opt/homebrew/opt/mpfr ..)
 
 cleancmake:
 	@- $(RM) CMakeCache.txt
