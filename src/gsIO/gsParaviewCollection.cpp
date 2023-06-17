@@ -60,10 +60,12 @@ namespace gismo
         return std::to_string( value );
     }
 
+#ifdef gsMpfr_ENABLED
     template<>
     std::string to_string(mpfr::mpreal &value ) {
         return value.toString();
     }
+#endif
   
     void gsParaviewCollection::newTimeStep(gsMultiPatch<real_t> * geometry, real_t time)
     {   
